@@ -101,7 +101,7 @@ def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
 
 
-for image_path in os.listdir(IMAGE_PATHS)[::100]:
+for image_path in os.listdir(IMAGE_PATHS)[2::10]:
 
     print('Running inference for {}... '.format(image_path), end='')
     if image_path.endswith('jpg'):
@@ -149,8 +149,11 @@ for image_path in os.listdir(IMAGE_PATHS)[::100]:
               agnostic_mode=False)
 
         plt.figure()
-        plt.imshow(image_np_with_detections)
-        plt.savefig('test.jpg')
+        fig = plt.imshow(image_np_with_detections)
+        plt.axis('off')
+        fig.axes.get_xaxis().set_visible(False)
+        fig.axes.get_yaxis().set_visible(False)
+        plt.savefig(f'./test/{image_path[:-4]}_test.png', pad_inches=2)
         print('Done')
 
 
